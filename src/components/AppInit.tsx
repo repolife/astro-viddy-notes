@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { FC, useEffect } from 'react'
+import { Navbar } from './Navbar'
 import {
   ClerkProvider,
   SignedIn,
@@ -7,27 +7,20 @@ import {
   UserButton,
   useUser,
   RedirectToSignIn,
-  SignIn,
-  SignUp
+  useAuth
 } from '@clerk/clerk-react'
+import { VideoList } from './Videos/VideoList'
 
-const { PUBLIC_CLERK_PUBLISHABLE_KEY } = import.meta.env
-
-// firebase.initializeApp({
-//   apiKey: FB_API,
-
-//   authDomain: FB_AUTH_DOMAIN,
-
-//   projectId: FB_PROJECT_ID,
-
-//   storageBucket: FB_STORAGE_BUCKET,
-
-//   messagingSenderId: FB_MESSAGING_SENDER_ID,
-
-//   appId: FB_APP_ID,
-
-//   measurementId: FB_MESSUREMENT_ID
-// })
+const {
+  PUBLIC_FB_APP_ID,
+  PUBLIC_FB_MESSUREMENT_ID,
+  PUBLIC_CLERK_PUBLISHABLE_KEY,
+  PUBLIC_FB_API,
+  PUBLIC_FB_AUTH_DOMAIN,
+  PUBLIC_FB_PROJECT_ID,
+  PUBLIC_FB_STORAGE_BUCKET,
+  PUBLIC_FB_MESSAGING_SENDER_ID
+} = import.meta.env
 
 if (!PUBLIC_CLERK_PUBLISHABLE_KEY) {
   throw 'Missing Publishable Key'
@@ -35,11 +28,12 @@ if (!PUBLIC_CLERK_PUBLISHABLE_KEY) {
 
 const clerkPubKey = PUBLIC_CLERK_PUBLISHABLE_KEY
 
-export const AppInit = () => {
+export const AppInit: FC = () => {
   return (
     <ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <SignedIn>
-        <h2>nigga</h2>
+        <Navbar />
+        <VideoList />
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
