@@ -16,6 +16,8 @@
     "@clerk/clerk-react": "^4.24.2",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@mantine/core": "^7.0.0",
+    "@mantine/hooks": "^7.0.0",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "astro": "^3.0.9",
@@ -26,6 +28,8 @@
     "react-firebase-hooks": "^5.1.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.16.0",
+    "react-youtube": "^10.1.0",
+    "simple-zustand-devtools": "^1.1.0",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
