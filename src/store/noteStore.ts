@@ -53,45 +53,47 @@ const addNote = (
 ]
 
 const useNoteStore = createStore<State>()(
-  (set): State => ({
-    notes: [],
-    newNote: { videoId: '', timestamp: 0, body: '' },
-    actions: {
-      setNotes: (notes: Note[]) =>
-        set((state) => ({
-          ...state,
-          notes
-        })),
-      removeNote: (id: number) =>
-        set((state) => ({
-          ...state,
-          notes: removeNote(state.notes, id)
-        })),
-      updateNote: (id: number, text: string) =>
-        set((state) => ({
-          ...state,
-          notes: updateNote(state.notes, id, text)
-        })),
+  devtools(
+    (set): State => ({
+      notes: [],
+      newNote: { videoId: '', timestamp: 0, body: '' },
+      actions: {
+        setNotes: (notes: Note[]) =>
+          set((state) => ({
+            ...state,
+            notes
+          })),
+        removeNote: (id: number) =>
+          set((state) => ({
+            ...state,
+            notes: removeNote(state.notes, id)
+          })),
+        updateNote: (id: number, text: string) =>
+          set((state) => ({
+            ...state,
+            notes: updateNote(state.notes, id, text)
+          })),
 
-      setNewNote: (body: string, timestamp: number, videoId: string) =>
-        set((state) => ({
-          ...state,
-          body,
-          timestamp,
-          videoId
-        })),
-      addNote: () =>
-        set((state) => ({
-          ...state,
-          notes: addNote(
-            state.notes,
-            state.newNote.body,
-            state.newNote.timestamp,
-            state.newNote.videoId
-          )
-        }))
-    }
-  })
+        setNewNote: (body: string, timestamp: number, videoId: string) =>
+          set((state) => ({
+            ...state,
+            body,
+            timestamp,
+            videoId
+          })),
+        addNote: () =>
+          set((state) => ({
+            ...state,
+            notes: addNote(
+              state.notes,
+              state.newNote.body,
+              state.newNote.timestamp,
+              state.newNote.videoId
+            )
+          }))
+      }
+    })
+  )
 )
 
 // if (process.env.NODE_ENV === 'development') {

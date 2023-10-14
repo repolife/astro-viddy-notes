@@ -3,9 +3,10 @@ import useVideosStore from '../../store/videoStore'
 import { Platform } from '../../constants/platform'
 import { RumbleContainer } from '../Rumble/Rumble'
 import { YouTubeVideo } from '../Youtube/Youtube'
+import { useStore } from 'zustand'
 
 export const Iframe = () => {
-  const { platform, videoId } = useVideosStore.getState()
+  const { platform, videoId } = useStore(useVideosStore)
   const timestamp = 0
 
   const preparedSource = useMemo(() => {
@@ -30,7 +31,7 @@ export const Iframe = () => {
     //   return (
     //     <RumbleContainer
     //       src={preparedSource}
-    //       videoId={videoId}
+    //       videoId={videoId}j
     //       platform={platform}
     //     />
     //   )

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Platform } from '../../constants/platform'
 import useVideoStore from '../../store/videoStore'
+import { useStore } from 'zustand'
 
 export const Search = () => {
-  const addPlatform = (platform: string) => useVideoStore.setState({ platform })
-  const addVideoId = (videoId: string) => useVideoStore.setState({ videoId })
+  const { addPlatform, addVideoId } = useStore(useVideoStore).actions
   const [inputValue, setInputValue] = useState<string>('')
   const platforms = Object.values(Platform)
-  const { platform } = useVideoStore.getState()
+  const { platform } = useStore(useVideoStore)
 
   return (
     <div className='grid grid-rows-3 sm:grid-rows-1 px-5'>

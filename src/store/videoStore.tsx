@@ -14,22 +14,24 @@ type Actions = {
   addVideoId: (id: string) => void
 }
 
-const useVideoStore = createStore<State>()((set) => ({
-  videoId: '',
-  platform: '',
-  actions: {
-    addPlatform: (platform: string) =>
-      set((state) => ({
-        ...state,
-        platform
-      })),
-    addVideoId: (id: string) =>
-      set((state) => ({
-        ...state,
-        videoId: id
-      }))
-  }
-}))
+const useVideoStore = createStore<State>()(
+  devtools((set) => ({
+    videoId: '',
+    platform: '',
+    actions: {
+      addPlatform: (platform: string) =>
+        set((state) => ({
+          ...state,
+          platform
+        })),
+      addVideoId: (id: string) =>
+        set((state) => ({
+          ...state,
+          videoId: id
+        }))
+    }
+  }))
+)
 
 if (process.env.NODE_ENV === 'development') {
   mountStoreDevtool('PlatformStore', useVideoStore)
