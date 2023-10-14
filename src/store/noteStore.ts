@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { createStore } from 'zustand/vanilla'
 import { devtools } from 'zustand/middleware'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 
@@ -52,7 +52,7 @@ const addNote = (
   }
 ]
 
-const useNoteStore = create<State>()(
+const useNoteStore = createStore<State>()(
   (set): State => ({
     notes: [],
     newNote: { videoId: '', timestamp: 0, body: '' },
@@ -94,9 +94,8 @@ const useNoteStore = create<State>()(
   })
 )
 
-if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('Notes', useNoteStore)
-}
+// if (process.env.NODE_ENV === 'development') {
+//   mountStoreDevtool('Notes', useNoteStore)
+// }
 
-export const useNotes = () => useNoteStore((state) => state)
-export const useNoteActions = () => useNoteStore((state) => state.actions)
+export default useNoteStore

@@ -37,5 +37,3 @@ export const initYoutubeAPI = (videoId: string) => {
     player.stopVideo()
   }
 }
-
-export default initYoutubeAPI

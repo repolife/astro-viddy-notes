@@ -1,9 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
-import { useVideos } from '../../store/videoStore'
-import { Platform } from '../../constants/platform'
-import { Button, Container } from '@mantine/core'
-import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube'
-import Controls from '../Controls./Controls'
+import YouTube from 'react-youtube'
+import type { YouTubeProps, YouTubePlayer } from 'react-youtube'
+import { Controls } from '../Controls/Controls'
+
 interface VideoProps {
   videoId: string
   platform: string
@@ -37,7 +36,7 @@ export const YouTubeVideo: FC<VideoProps> = ({ videoId, platform, src }) => {
   }
 
   return (
-    <Container>
+    <>
       <YouTube
         videoId={videoId}
         opts={opts}
@@ -45,7 +44,7 @@ export const YouTubeVideo: FC<VideoProps> = ({ videoId, platform, src }) => {
         onPause={onPause}
       />
       <Controls seconds={timestamp} changeTime={changeTime} />
-    </Container>
+    </>
   )
 }
 

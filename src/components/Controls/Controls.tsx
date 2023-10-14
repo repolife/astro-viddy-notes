@@ -1,37 +1,34 @@
-import React, { FC, useRef } from 'react'
-import { Container, Button, Input } from '@mantine/core'
-import { useNoteActions } from '../../store/noteStore'
-import { useVideos } from '../../store/videoStore'
-import { useInputState } from '@mantine/hooks'
+import React, { FC, useState } from 'react'
+import useNoteStore from '../../store/noteStore'
+import { useStore } from 'zustand'
+import useVideoStore from '../../store/videoStore'
 import { TextInput, NumberInput } from '@mantine/core'
 interface ControlsProps {
   seconds: number
   changeTime: (seconds: number) => void
 }
 export const Controls: FC<ControlsProps> = ({ seconds, changeTime }) => {
-  const { videoId, platform } = useVideos()
-  const { setNewNote } = useNoteActions()
+  const { videoId, platform } = useVideoStore.getState()
+  // const { setNewNote } = useNoteActions()
+  const setNewNote = (body: string, timestamp: number, videoId: string) =>
+    useNoteStore.setState({ newNote: { body, timestamp, videoId } })
+  const [stringValue, setStringValue] = useState('')
 
-  const [stringValue, setStringValue] = useInputState('')
-
-  // const handleAddNote = () => {
-  //     addNote({ note: stringValue, timestamp: seconds }, id: videoId)
-  // }
+  // seconds
 
   return (
-    <Container>
-      <Button onClick={() => changeTime(seconds)}>Click</Button>
+    <>
+      <button onClick={() => changeTime(20)}>Click</button>
 
-      <TextInput
+      <input
+        type='text'
         value={stringValue}
-        onChange={setStringValue}
+        onChange={(e) => setStringValue(e.target.value)}
         name='Add Note'
-      ></TextInput>
-      <Button onClick={() => setNewNote(stringValue, seconds, videoId)}>
+      ></input>
+      <button onClick={() => setNewNote(stringValue, seconds, videoId)}>
         Add Note
-      </Button>
-    </Container>
+      </button>
+    </>
   )
 }
-
-export default Controls

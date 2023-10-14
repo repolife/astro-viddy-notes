@@ -9,7 +9,8 @@ import {
   RedirectToSignIn,
   useAuth
 } from '@clerk/clerk-react'
-import { VideoList } from './Videos/VideoList'
+import Iframe from './Iframe/Iframe'
+import { Search } from './Search/Search'
 
 const {
   PUBLIC_FB_APP_ID,
@@ -33,7 +34,8 @@ export const AppInit: FC = () => {
     <ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <SignedIn>
         <Navbar />
-        <VideoList />
+        <Search />
+        <Iframe />
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />

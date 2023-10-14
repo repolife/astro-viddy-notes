@@ -1,37 +1,57 @@
-import React, { FC, useRef } from 'react'
-import { Container, Button, Input } from '@mantine/core'
-import { useNoteActions } from '../../store/noteStore'
-import { useVideos } from '../../store/videoStore'
-import { useInputState } from '@mantine/hooks'
-import { TextInput, NumberInput } from '@mantine/core'
-interface ControlsProps {
-  seconds: number
-  changeTime: (seconds: number) => void
+import React, { useMemo } from 'react'
+import useVideosStore from '../../store/videoStore'
+import { Platform } from '../../constants/platform'
+import { RumbleContainer } from '../Rumble/Rumble'
+import { YouTubeVideo } from '../Youtube/Youtube'
+
+export const Iframe = () => {
+  const { platform, videoId } = useVideosStore.getState()
+  const timestamp = 0
+
+  const preparedSource = useMemo(() => {
+    switch (platform) {
+      case Platform.YOUTUBE:
+        return `https://www.${platform}.com/$/embed/${videoId}?t=${timestamp}`
+
+        break
+
+      default:
+        return `https://www.${platform}.com/embed/${videoId}`
+        break
+    }
+  }, [platform, videoId])
+
+  if (videoId === '') {
+    return <h2>Please set Video Id</h2>
+  }
+
+  switch (platform) {
+    // case Platform.RUMBLE:
+    //   return (
+    //     <RumbleContainer
+    //       src={preparedSource}
+    //       videoId={videoId}
+    //       platform={platform}
+    //     />
+    //   )
+
+    case Platform.YOUTUBE:
+      return (
+        <YouTubeVideo
+          src={preparedSource}
+          platform={platform}
+          videoId={videoId}
+        />
+      )
+    default:
+      return (
+        <YouTubeVideo
+          src={preparedSource}
+          platform={platform}
+          videoId={videoId}
+        />
+      )
+  }
 }
-export const Controls: FC<ControlsProps> = ({ seconds, changeTime }) => {
-  const { videoId, platform } = useVideos()
-  const { setNewNote } = useNoteActions()
 
-  const [stringValue, setStringValue] = useInputState('')
-
-  // const handleAddNote = () => {
-  //     addNote({ note: stringValue, timestamp: seconds }, id: videoId)
-  // }
-
-  return (
-    <Container>
-      <Button onClick={() => changeTime(seconds)}>Click</Button>
-
-      <TextInput
-        value={stringValue}
-        onChange={setStringValue}
-        name='Add Note'
-      ></TextInput>
-      <Button onClick={() => setNewNote(stringValue, seconds, videoId)}>
-        Add Note
-      </Button>
-    </Container>
-  )
-}
-
-export default Controls
+export default Iframe

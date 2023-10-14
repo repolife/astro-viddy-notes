@@ -1,4 +1,5 @@
-import create from 'zustand'
+import { createStore } from 'zustand/vanilla'
+
 import { devtools } from 'zustand/middleware'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 
@@ -13,30 +14,20 @@ type Actions = {
   addVideoId: (id: string) => void
 }
 
-const useVideoStore = create<State>()((set) => ({
+const useVideoStore = createStore<State>()((set) => ({
   videoId: '',
   platform: '',
   actions: {
     addPlatform: (platform: string) =>
-      set(
-        (state) => (
-          console.log(platform),
-          {
-            ...state,
-            platform
-          }
-        )
-      ),
+      set((state) => ({
+        ...state,
+        platform
+      })),
     addVideoId: (id: string) =>
-      set(
-        (state) => (
-          console.log(id),
-          {
-            ...state,
-            videoId: id
-          }
-        )
-      )
+      set((state) => ({
+        ...state,
+        videoId: id
+      }))
   }
 }))
 
@@ -44,5 +35,4 @@ if (process.env.NODE_ENV === 'development') {
   mountStoreDevtool('PlatformStore', useVideoStore)
 }
 
-export const useVideos = () => useVideoStore((state) => state)
-export const useVideoActions = () => useVideoStore((state) => state.actions)
+export default useVideoStore

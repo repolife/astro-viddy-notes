@@ -1,5 +1,6 @@
 ---
 import { AppInit } from '../components/AppInit'
+import Rumble from '../services/rumble.astro'
 const { title } = Astro.props
 ---
 
@@ -11,6 +12,7 @@ const { title } = Astro.props
   </head>
   <body>
     <main>
+      <Rumble />
       <AppInit client:only='react' />
       <slot />
     </main>

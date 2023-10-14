@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { Platform } from '../../constants/platform'
-import { useVideoActions, useVideos } from '../../store/videoStore'
+import useVideoStore from '../../store/videoStore'
 
 export const Search = () => {
-  const { addPlatform, addVideoId } = useVideoActions()
+  const addPlatform = (platform: string) => useVideoStore.setState({ platform })
+  const addVideoId = (videoId: string) => useVideoStore.setState({ videoId })
   const [inputValue, setInputValue] = useState<string>('')
   const platforms = Object.values(Platform)
-  const { platform } = useVideos()
+  const { platform } = useVideoStore.getState()
+
   return (
     <div className='grid grid-rows-3 sm:grid-rows-1 px-5'>
       {/* <Select data={[...platforms]} onChange={addPlatform}></Select> */}
@@ -19,6 +21,7 @@ export const Search = () => {
         </label>
         <div className='mt-2 '>
           <select
+            onChange={(e) => addPlatform(e.target.value)}
             id='country'
             name='country'
             autoComplete='country-name'
@@ -63,5 +66,3 @@ export const Search = () => {
     </div>
   )
 }
-
-export default Search
