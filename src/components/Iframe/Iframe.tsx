@@ -1,12 +1,16 @@
-import React, { useMemo } from 'react'
-import useVideosStore from '../../store/videoStore'
+import React, { FC, useMemo } from 'react'
+import useVideoStore from '../../store/videoStore'
 import { Platform } from '../../constants/platform'
 import { RumbleContainer } from '../Rumble/Rumble'
 import { YouTubeVideo } from '../Youtube/Youtube'
 import { useStore } from 'zustand'
 
-export const Iframe = () => {
-  const { platform, videoId } = useStore(useVideosStore)
+interface IframeProps {
+  children: React.ReactNode
+}
+
+export const Iframe: FC<IframeProps> = ({ children }) => {
+  const { platform, videoId } = useStore(useVideoStore)
   const timestamp = 0
 
   const preparedSource = useMemo(() => {
@@ -27,14 +31,8 @@ export const Iframe = () => {
   }
 
   switch (platform) {
-    // case Platform.RUMBLE:
-    //   return (
-    //     <RumbleContainer
-    //       src={preparedSource}
-    //       videoId={videoId}j
-    //       platform={platform}
-    //     />
-    //   )
+    case Platform.RUMBLE:
+      return <>{children}</>
 
     case Platform.YOUTUBE:
       return (

@@ -27,15 +27,16 @@ if (!PUBLIC_CLERK_PUBLISHABLE_KEY) {
   throw 'Missing Publishable Key'
 }
 
-const clerkPubKey = PUBLIC_CLERK_PUBLISHABLE_KEY
-
-export const AppInit: FC = () => {
+interface AppInitProps {
+  children: React.ReactNode
+}
+export const AppInit: FC<AppInitProps> = ({ children }) => {
   return (
     <ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <SignedIn>
         <Navbar />
         <Search />
-        <Iframe />
+        <Iframe children={children} />
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
